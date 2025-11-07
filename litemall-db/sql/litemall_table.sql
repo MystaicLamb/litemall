@@ -824,6 +824,31 @@ CREATE TABLE `litemall_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `litemall_review`
+--
+
+DROP TABLE IF EXISTS `litemall_review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `litemall_review` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `goods_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `order_id` int(11) NOT NULL DEFAULT '0' COMMENT '订单ID',
+  `product_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品规格ID',
+  `star` tinyint(3) NOT NULL DEFAULT '0' COMMENT '评分 1-5',
+  `content` varchar(1023) NOT NULL DEFAULT '' COMMENT '评论内容',
+  `pics` varchar(1023) DEFAULT '[]' COMMENT '评论图片',
+  `add_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品评价表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
