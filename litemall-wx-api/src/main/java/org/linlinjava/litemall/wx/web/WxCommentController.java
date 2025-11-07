@@ -7,6 +7,7 @@ import org.linlinjava.litemall.core.util.ResponseUtil;
 import org.linlinjava.litemall.db.domain.LitemallComment;
 import org.linlinjava.litemall.db.service.LitemallCommentService;
 import org.linlinjava.litemall.db.service.LitemallGoodsService;
+import org.linlinjava.litemall.db.service.LitemallOrderGoodsService;
 import org.linlinjava.litemall.db.service.LitemallTopicService;
 import org.linlinjava.litemall.db.service.LitemallUserService;
 import org.linlinjava.litemall.wx.annotation.LoginUser;
@@ -41,6 +42,9 @@ public class WxCommentController {
     private LitemallGoodsService goodsService;
     @Autowired
     private LitemallTopicService topicService;
+
+        @Autowired
+    private LitemallOrderGoodsService orderGoodsService;
 
     private Object validate(LitemallComment comment) {
         String content = comment.getContent();
@@ -94,6 +98,13 @@ public class WxCommentController {
         Object error = validate(comment);
         if (error != null) {
             return error;
+        }
+    // 检查用户是否购买了该商品
+        if (comment.getType() == 0) { // 商品评论
+            boolean hasBought = orderGoodsService.checkUserBuyGoods(userId, comment.getValueId());
+            if (!hasBought) {
+                return ResponseUtil.badArgumentValue("您尚未购买该商品，无法评价");
+            }
         }
 
         comment.setUserId(userId);

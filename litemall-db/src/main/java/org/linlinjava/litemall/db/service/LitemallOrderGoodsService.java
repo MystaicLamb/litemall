@@ -47,7 +47,11 @@ public class LitemallOrderGoodsService {
         example.or().andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
         return orderGoodsMapper.countByExample(example) != 0;
     }
-
+   public boolean checkUserBuyGoods(Integer userId, Integer goodsId) {
+        LitemallOrderGoodsExample example = new LitemallOrderGoodsExample();
+        example.or().andUserIdEqualTo(userId).andGoodsIdEqualTo(goodsId).andDeletedEqualTo(false);
+        return orderGoodsMapper.countByExample(example) != 0;
+    }
     public void deleteByOrderId(Integer orderId) {
         LitemallOrderGoodsExample example = new LitemallOrderGoodsExample();
         example.or().andOrderIdEqualTo(orderId).andDeletedEqualTo(false);

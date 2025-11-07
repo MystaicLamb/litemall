@@ -497,7 +497,30 @@ CREATE TABLE `litemall_issue` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='常见问题表';
 /*!40101 SET character_set_client = @saved_cs_client */;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `litemall_goods_question`
+--
+
+DROP TABLE IF EXISTS `litemall_goods_question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `litemall_goods_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '提问用户ID',
+  `question` varchar(511) DEFAULT '' COMMENT '问题内容',
+  `answer` varchar(511) DEFAULT '' COMMENT '回答内容',
+  `answer_user_id` int(11) DEFAULT '0' COMMENT '回答用户ID',
+  `answer_time` datetime DEFAULT NULL COMMENT '回答时间',
+  `add_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `deleted` tinyint(1) DEFAULT '0' COMMENT '逻辑删除',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品提问表';
 --
 -- Table structure for table `litemall_keyword`
 --
